@@ -1,10 +1,12 @@
 /* style.css */
+
 body {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   background-color: #f0f0f0;
 }
@@ -12,4 +14,24 @@ body {
 canvas {
   background: #ffffff;
   border: 1px solid #000;
+}
+
+/* Estilização dos controles móveis */
+#mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+#mobile-controls button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
 }
