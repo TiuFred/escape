@@ -32,7 +32,7 @@ function update() {
   // Atualiza posição horizontal
   stickman.x += stickman.velocityX;
 
-  // Atualiza posição vertical com gravidade
+  // Aplica gravidade se o stickman não estiver no chão
   if (stickman.y < groundLevel) {
     stickman.velocityY += gravity;
   } else {
@@ -42,10 +42,11 @@ function update() {
   }
   stickman.y += stickman.velocityY;
 
-  // Limita o stickman dentro do canvas
+  // Limita o stickman dentro dos limites do canvas
   if (stickman.x < 0) stickman.x = 0;
-  if (stickman.x + stickman.width > canvas.width)
+  if (stickman.x + stickman.width > canvas.width) {
     stickman.x = canvas.width - stickman.width;
+  }
 }
 
 // Renderiza o stickman e outros elementos
@@ -65,7 +66,7 @@ window.addEventListener('keydown', (e) => {
   } else if (e.key === 'ArrowLeft') {
     stickman.velocityX = -stickman.speed;
   } else if (e.key === 'ArrowUp' && !stickman.jumping) {
-    stickman.velocityY = -10; // Valor para o pulo
+    stickman.velocityY = -10; // Valor do pulo
     stickman.jumping = true;
   }
 });
@@ -73,6 +74,40 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
     stickman.velocityX = 0;
+  }
+});
+
+// Eventos de toque para os controles móveis
+const btnLeft = document.getElementById('btn-left');
+const btnRight = document.getElementById('btn-right');
+const btnJump = document.getElementById('btn-jump');
+
+// Mover para a esquerda
+btnLeft.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  stickman.velocityX = -stickman.speed;
+});
+btnLeft.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  stickman.velocityX = 0;
+});
+
+// Mover para a direita
+btnRight.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  stickman.velocityX = stickman.speed;
+});
+btnRight.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  stickman.velocityX = 0;
+});
+
+// Pular
+btnJump.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  if (!stickman.jumping) {
+    stickman.velocityY = -10;
+    stickman.jumping = true;
   }
 });
 
